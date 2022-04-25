@@ -86,4 +86,5 @@ try {
 }
 catch {
     Write-Error ($_.ErrorDetails.Message | ConvertFrom-Json).Message
+    exit 1
 }
