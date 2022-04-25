@@ -4,7 +4,7 @@ pool:
 jobs:
  - job: Run_PowerShell_Write_Host
    steps:
-     - task: PowerShell@2dfgdfg
+     - task: PowerShell@2
        inputs:
          targetType: "inline"
          script: |
