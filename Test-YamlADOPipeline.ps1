@@ -29,6 +29,20 @@ param (
     [string] $PersonalAccessToken
 )
 
+function Add-CustomObjectProperties {
+    [OutputType([PSCustomObject])]
+    param (
+        [Parameter(Mandatory = $true)]
+        [PSCustomObject] $Object
+    )
+
+    if ($null -ne $Object) {
+        $Object | Add-Member -MemberType NoteProperty -Name "ResultMessage" -Value "Validation success"
+        $Object | Add-Member -MemberType NoteProperty -Name "StatusCode" -Value "200"
+        return $Object
+    }
+}
+
 $content = @"
 $(Get-Content -Raw $YamlFilePath)
 "@
@@ -47,4 +61,10 @@ $Arguments = @{
     Headers     = @{Authorization = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(":$($PersonalAccessToken)")) }
 }
 
-Invoke-RestMethod @Arguments
+try {
+    [PSCustomObject] $restOutput = Invoke-RestMethod @Arguments
+    Add-CustomObjectProperties -Object $restOutput
+}
+catch {
+    Write-Error ($_.ErrorDetails.Message | ConvertFrom-Json).Message
+}
