@@ -1,4 +1,4 @@
-# Validate Azure Pipeline
+# Validate Azure Pipeline YAML files
 
 Introduction
 ---
