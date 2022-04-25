@@ -1,3 +1,21 @@
+<#
+.SYNOPSIS
+    Performs actions to validate the given YAML file in Azure DevOps using an official Microsoft API.
+.EXAMPLE
+    PS> .\Test-YamlADOPipeline.ps1 -OrganizationName my-org-name -ProjectName my-project-name -PipelineId 24 -YamlFilePath TestFiles/test.yml -PersonalAccessToken dSRjMqskBhxWlKwUOEGJzbYNLVmeXfaHATgZDcnoupIFPivCytQr
+
+    Validates the given YAML file on an existing pipeline definition (PAT is an example and randomized)
+.PARAMETER OrganizationName
+    This describes name of the Azure DevOps organization name. [string]
+.PARAMETER ProjectName
+    This describes name of the project. [string]
+.PARAMETER PipelineId
+    This describes the definition id of the pipeline where the YAML needs to be validated. [int]
+.PARAMETER YamlFilePath
+    This describes the path to the YAML file (e.g. ./TestFiles/test.yml). [string]
+.PARAMETER PersonalAccessToken
+    This describes the authentication token for Azure DevOps. [string]
+#>
 param (
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
