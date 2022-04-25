@@ -1,7 +1,7 @@
 jobs:
   - job: Checkout
     steps:
-      - checkout: git://your_project/your_repo # e.g. git://MyProject/MyRepo.Generic (git://project/repository)
+      - checkout: git://your_project/your_repo@featurebranch # e.g. git://MyProject/MyRepo.Generic (git://project/repository)
       - task: CopyFiles@2
         inputs:
           sourceFolder: $(Build.SourcesDirectory)
@@ -13,17 +13,22 @@ jobs:
   - job: Validate_Azure_Pipeline
     displayName: "Validate Azure Pipeline YAML"
     dependsOn: Checkout
+    variables:
+      - group: MyVariableGroup
     steps:
         - task: DownloadPipelineArtifact@2
           inputs:
             artifact: drop
+        - powershell: |
+            [string] $collectionUri = $(System.CollectionUri)
+            echo "##vso[task.setvariable variable=OrganizationName] $($collectionUri -Split '/')[-2]"
         - task: PowerShell@2
           inputs:
             targetType: filePath
             filePath: ./Test-YamlADOPipeline.ps1
             arguments: >
-              -OrganizationName someName 
-              -ProjectName 
-              -PipelineId "Some long string value"
-              -YamlFilePath
-              -PersonalAccessToken
+              -OrganizationName $(OrganizationName) 
+              -ProjectName $(System.TeamProject)
+              -PipelineId $(System.DefinitionId)
+              -YamlFilePath ./TestFiles/test.yml
+              -PersonalAccessToken $(PAT)
