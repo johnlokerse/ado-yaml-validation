@@ -1,0 +1,65 @@
+{
+    "id": "aba9abf8-90fb-40be-811a-1654eda9ce12",
+    "name": "AzurePipelineYAMLValidator",
+    "friendlyName": "Azure Pipeline YAML Validator",
+    "description": "Validate a specified Azure Pipeline YAML file",
+    "helpMarkDown": "[Learn more about this task](https://github.com/johnlokerse/ado-yaml-validation)",
+    "helpUrl": "https://github.com/johnlokerse/ado-yaml-validation",
+    "category": "Utility",
+    "visibility": [
+        "Utility",
+        "Release",
+        "Build"
+    ],
+    "author": "johnlokerse",
+    "demands": [],
+    "version": {
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
+    },
+    "inputs": [
+        {
+            "name": "OrganizationName",
+            "type": "string",
+            "label": "Organization Name",
+            "required": true,
+            "helpMarkDown": "This describes name of the Azure DevOps organization name."
+        },
+        {
+            "name": "ProjectName",
+            "type": "string",
+            "label": "Project Name",
+            "required": true,
+            "helpMarkDown": "This describes name of the project."
+        },
+        {
+            "name": "PipelineId",
+            "type": "string",
+            "label": "Pipeline Id",
+            "required": true,
+            "helpMarkDown": "This describes the definition id of the pipeline where the YAML needs to be validated."
+        },
+        {
+            "name": "YamlFilePath",
+            "type": "filePath",
+            "label": "Yaml File Path",
+            "required": true,
+            "helpMarkDown": "This describes the path to the YAML file (e.g. ./TestFiles/test.yml)."
+        },
+        {
+            "name": "PersonalAccessToken",
+            "type": "string",
+            "label": "Personal Access Token",
+            "required": true,
+            "helpMarkDown": "This describes the authentication token for Azure DevOps."
+        }
+    ],
+    "execution": {
+        "PowerShell3": {
+            "target": "$(currentDirectory)\\Scripts\\Test-YamlADOPipeline.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(currentDirectory)"
+        }
+    }
+}

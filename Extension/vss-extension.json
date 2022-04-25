@@ -1,0 +1,33 @@
+{
+	"manifestVersion": 1,
+	"id": "e1e00505-2b24-4c4e-9449-b096461bd0f9",
+	"name": "ADO YAML Validator",
+	"version": "1.0.0",
+	"publisher": "johnlokerse",
+	"targets": [
+		{
+			"id": "Microsoft.VisualStudio.Services"
+		}
+	],
+	"description": "An extension built to validate YAML files.",
+	"categories": [
+		"Azure Pipelines"
+	],
+	"icons": {
+		"default": "images/todo.jpg"
+	},
+	"content": {
+		"details": {
+			"path": "../README.md"
+		}
+	},
+    "links": {
+        "blog": {
+            "uri": "https://johnlokerse.wordpress.com/2022/02/07/validating-yaml-using-azure-devops-or-cli/"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/johnlokerse/ado-yaml-validation"
+    }
+}
