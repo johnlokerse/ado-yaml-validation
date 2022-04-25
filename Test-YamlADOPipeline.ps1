@@ -11,27 +11,30 @@ param (
     [int] $PipelineId,
 
     [Parameter(Mandatory = $true)]
-    [ValidateScript({
-            if (-not ($_ | Test-Path)) {
-                throw "File or Path does not exist."
-            }
+    # [ValidateScript({
+    #         Write-Host $_
+    #         if (-not ($_ | Test-Path)) {
+    #             throw "File or Path does not exist."
+    #         }
 
-            if ($_ -notmatch "(\.yml)") {
-                throw "The file specified in the path must be of type yml."
-            }
-        })]
+    #         if ($_ -notmatch "(\.yml)") {
+    #             throw "The file specified in the path must be of type yml."
+    #         }
+    #     })]
     [string] $YamlFilePath,
 
+    # Build Read & Execute permissions!
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
     [string] $PersonalAccessToken
 )
 
-
+$content = @"
+$(Get-Content -Raw $YamlFilePath)
+"@
 $Body = @{
     "PreviewRun"   = "true"
-    "YamlOverride" = 
-    ''
+    "YamlOverride" = $content
 }
 
 $Url = "https://dev.azure.com/$OrganizationName/$ProjectName/_apis/pipelines/$PipelineId/runs?api-version=5.1-preview"

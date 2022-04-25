@@ -1,0 +1,11 @@
+pool:
+  vmImage: windows-2019
+  
+jobs:
+ - job: Run_PowerShell_Write_Host
+   steps:
+     - task: PowerShell@2dfgdfg
+       inputs:
+         targetType: "inline"
+         script: |
+          Write-Host "Hello World"
