@@ -11,16 +11,17 @@ param (
     [int] $PipelineId,
 
     [Parameter(Mandatory = $true)]
-    # [ValidateScript({
-    #         Write-Host $_
-    #         if (-not ($_ | Test-Path)) {
-    #             throw "File or Path does not exist."
-    #         }
+    [ValidateScript({
+            if (-not ($_ | Test-Path)) {
+                throw "File or Path does not exist."
+            }
 
-    #         if ($_ -notmatch "(\.yml)") {
-    #             throw "The file specified in the path must be of type yml."
-    #         }
-    #     })]
+            if ($_ -notmatch "(\.yml)") {
+                throw "The file specified in the path must be of type yml."
+            }
+
+            return $true
+        })]
     [string] $YamlFilePath,
 
     # Build Read & Execute permissions!
