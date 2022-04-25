@@ -1,0 +1,29 @@
+jobs:
+  - job: Checkout
+    steps:
+      - checkout: git://your_project/your_repo # e.g. git://MyProject/MyRepo.Generic (git://project/repository)
+      - task: CopyFiles@2
+        inputs:
+          sourceFolder: $(Build.SourcesDirectory)
+          targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: drop
+  - job: Validate_Azure_Pipeline
+    displayName: "Validate Azure Pipeline YAML"
+    dependsOn: Checkout
+    steps:
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: drop
+        - task: PowerShell@2
+          inputs:
+            targetType: filePath
+            filePath: ./Test-YamlADOPipeline.ps1
+            arguments: >
+              -OrganizationName someName 
+              -ProjectName 
+              -PipelineId "Some long string value"
+              -YamlFilePath
+              -PersonalAccessToken
