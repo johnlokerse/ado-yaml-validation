@@ -9,7 +9,6 @@ The API output has been modified slightly because it was missing some useful inf
 * Added StatusCode
 
 ### Requirements
-* Basic Azure DevOps license
 * Personal Access Token with **Build - Read & Execute** permissions
 
 Key concept
