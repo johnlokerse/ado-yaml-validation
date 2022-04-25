@@ -1,17 +1,22 @@
-### Validate Azure Pipeline YAML
+# Validate Azure Pipeline
 
-This repository contains a script which does a check if the YAML file corresponds with the YAML schema of Azure DevOps. The API used is an official Microsoft Azure DevOps API. Also, I included an example Azure Pipeline.
+Introduction
+---
+This repository contains a script which does a check if the YAML file corresponds with the YAML schema of Azure DevOps. The script uses the official Microsoft Azure DevOps API. Also, this repository includes an example pipeline on how you use the PowerShell script.
 
 The API output has been modified slightly because it was missing some useful information:
 * Added ResultMessage
 * Added StatusCode
 
-Requirements:
+### Requirements
 * Basic Azure DevOps license
-* Personal Access Token with permissions with **Build - Read & Execute** permissions
+* Personal Access Token with **Build - Read & Execute** permissions
 
-Feel free to contribute if I forgot something.
+Key concept
+---
+The purpose of this repository is to make it easier to validate YAML without being limited to the Azure DevOps GUI. This script can be used in either a pipeline or locally.
 
 ---
+Feel free to contribute 🙂
 
-Corresponding blog post: https://johnlokerse.wordpress.com/2022/02/07/validating-yaml-using-azure-devops-or-cli/
+Additional information on my blog: https://johnlokerse.wordpress.com/2022/02/07/validating-yaml-using-azure-devops-or-cli/
