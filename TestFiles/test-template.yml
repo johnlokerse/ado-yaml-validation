@@ -1,0 +1,6 @@
+pool:
+  vmImage: windows-2019
+
+jobs:
+  # Template must exist in repository or the validation will fail
+  - template: azure-pipeline.yml
