@@ -6,7 +6,7 @@ Describe "YAML Validation" {
         [string] $yamlFilePath = "TestFiles\success.yml"
         [string] $personalAccessToken = $null
 
-        $result = (.\Test-YamlADOPipeline.ps1 -OrganizationName $organizationName -ProjectName $projectName -PipelineId $pipelineId -YamlFilePath $yamlFilePath -PersonalAccessToken odrj7gyhrh7mq54eiyfnq2qslf33aqbpvexbxvgldjm3onglea3a)
+        $result = (.\Test-YamlADOPipeline.ps1 -OrganizationName $organizationName -ProjectName $projectName -PipelineId $pipelineId -YamlFilePath $yamlFilePath -PersonalAccessToken $personalAccessToken)
     }
 
     It "Should contain a status code property" {
