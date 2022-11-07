@@ -34,8 +34,8 @@ param (
                 throw "File or Path does not exist."
             }
 
-            if ($_ -notmatch "(\.yml)") {
-                throw "The file specified in the path must be of type yml."
+            if ($_ -notmatch "(\.ya?ml)") {
+                throw "The file specified in the path must be of type yml or yaml."
             }
 
             return $true
