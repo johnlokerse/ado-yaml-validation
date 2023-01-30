@@ -70,7 +70,7 @@ $Body = @{
     "YamlOverride" = $content
 }
 
-$Url = "https://dev.azure.com/$OrganizationName/$ProjectName/_apis/pipelines/$PipelineId/runs?api-version=5.1-preview"
+$Url = "https://dev.azure.com/$OrganizationName/$ProjectName/_apis/pipelines/$PipelineId/runs?api-version=7.0"
 
 $Arguments = @{
     Method      = "POST"
