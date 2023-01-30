@@ -1,0 +1,57 @@
+trigger:  
+  branches:
+    include:
+      - develop
+      - main
+
+
+parameters:
+  - name: OrganizationName
+    type: string
+    default: myorg
+    values:
+      - myorg
+  - name: YamlFilePaths 
+    type: object
+    default:
+    - ./TestFiles/test.yml
+    - ./azure-pipelines.yml
+    
+
+pool:
+  vmImage: 'ubuntu-latest'
+  
+jobs:  
+  
+  - job: BuildArtifact
+    steps:
+      - task: CopyFiles@2
+        inputs:
+          sourceFolder: $(Build.SourcesDirectory)
+          targetFolder: $(Build.ArtifactStagingDirectory)
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: $(Build.ArtifactStagingDirectory)
+          artifactName: drop
+
+  - job: Validate_Azure_Pipeline
+    displayName: "Validate Azure Pipeline YAML"
+    dependsOn: BuildArtifact
+    variables:
+      - group: MyVariableGroup
+    steps:
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            artifact: drop        
+        - ${{ each YamlFilePath in parameters.YamlFilePaths }}:    
+          - task: PowerShell@2
+            inputs:
+              targetType: filePath
+              filePath: ./Test-YamlADOPipeline.ps1
+              arguments: >
+                -OrganizationName ${{parameters.OrganizationName}}
+                -ProjectName $(System.TeamProject)
+                -PipelineId $(System.DefinitionId)
+                -YamlFilePath ${{YamlFilePath}}
+                -PersonalAccessToken $(PAT)
+  
