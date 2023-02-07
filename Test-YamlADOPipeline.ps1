@@ -85,6 +85,19 @@ try {
     Add-CustomObjectProperties -Object $restOutput
 }
 catch {
-    Write-Error ($_.ErrorDetails.Message | ConvertFrom-Json).Message
+    $ErrorMessage = $_.Exception.Message
+    
+    try { 
+        # If it's json
+        Write-Error ($ErrorMessage | ConvertFrom-Json).Message
+    } 
+    catch {
+        # In case it's something else, when it's not parsable....
+        Write-Host "Make sure the PersonalAccessToken is valid."
+        Write-Host "To update the PAT, edit the Pipeline and update the Variable with a valid token with permissions: Build read+execute!"
+        Write-Error $ErrorMessage
+    }
     exit 1
 }
+    
+
